@@ -1,0 +1,1 @@
+# conan-curl-scripts
