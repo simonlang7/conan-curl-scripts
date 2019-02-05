@@ -20,6 +20,18 @@
 
 set -e
 
+if [ "$1" == "--help" ]; then
+    echo "Usage: $0 [-f|--force]"
+    exit 0
+fi
+
+FORCE_FLAG=$1
+if [ "$FORCE_FLAG" == "-f" ] || [ "$FORCE_FLAG" == "--force" ]; then
+    FORCE_FLAG="--force"
+else
+    FORCE_FLAG=""
+fi
+
 #=======================================================================================================================
 # settings
 
@@ -68,7 +80,7 @@ function createConanPackage()
     ARCH=$1
     BUILD_TYPE=$2
 
-    conan export-pkg . -f ${LIBRARY_NAME}/${LIBRARY_VERSION}@appcom/stable -s os=iOS -s os.version=${IOS_SDK_VERSION} \
+    conan export-pkg . ${FORCE_FLAG} ${LIBRARY_NAME}/${LIBRARY_VERSION}@appcom/stable -s os=iOS -s os.version=${IOS_SDK_VERSION} \
           -s compiler=apple-clang -s compiler.libcxx=libc++ -s build_type=${BUILD_TYPE} -s arch=${ARCH} -s os_build=Macos \
           -s arch_build=x86_64
 }
@@ -77,7 +89,7 @@ function createConanPackage()
 
 function uploadConanPackages()
 {
-    conan upload ${LIBRARY_NAME}/${LIBRARY_VERSION}@appcom/stable -r appcom-oss --all
+    conan upload ${FORCE_FLAG} ${LIBRARY_NAME}/${LIBRARY_VERSION}@appcom/stable -r appcom-oss --all
 }
 
 #=======================================================================================================================

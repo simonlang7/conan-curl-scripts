@@ -53,10 +53,12 @@ DESTDIR="$SCRIPTPATH/build/macOS"
 cd "$CURLPATH"
 ./configure	${DEBUG_OPTION} \
 		--with-darwinssl \
+        --without-libidn2 \
 		--enable-static \
 		--disable-shared \
 		--enable-threaded-resolver \
 		--disable-verbose \
+        --disable-ldap \
 		--enable-ipv6
 EXITCODE=$?
 if [ $EXITCODE -ne 0 ]; then
