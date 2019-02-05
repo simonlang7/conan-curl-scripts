@@ -109,11 +109,6 @@ make clean
 
 git checkout $CURLPATH
 
-# Build a single static lib with all the archs in it
-# cd "$DESTDIR"
-# lipo -create -output libcurl.a libcurl-*.a
-# rm libcurl-*.a
-
 # Copy cURL headers
 if [ -d "${FULL_DESTDIR}/include" ]; then
 	echo "Cleaning headers"
